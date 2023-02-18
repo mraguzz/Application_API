@@ -17,7 +17,7 @@ print(model.coef_)
 
 @app.route('/', methods=['GET'])
 def home():
-	return "<h1>hola, soy tu predictor de ventas</h1><p>Esto no es un copy/paste.</p>"
+	return "<h1>hola desde el repo!</h1><p>Esto no es un copy/paste.</p>"
 
 
 # POST {"TV":, "radio":, "newspaper":} -> It returns the sales prediction for input investments
@@ -32,8 +32,8 @@ def get_predict():
     crs = conn.cursor()
 
     # Get POST JSON data
-    data = request.get_json()
-    if type(data) != dict:
+    data = request.get_json(silent = True)
+    if data == None:
          data = request.args
     tv = data.get("TV",0)
     radio = data.get("radio",0)
@@ -47,7 +47,7 @@ def get_predict():
                     VALUES(?,?,?,?,?) ''', (str_time, tv, radio, newspaper, pred))
     conn.commit()
     conn.close()
-    return str(pred), 200
+    return "con valores %.1f %.1f %.1f: %s" %(tv, radio, newspaper,pred), 200
 
 @app.route("/review_predicts", methods = ['GET'])
 def return_predicts():
