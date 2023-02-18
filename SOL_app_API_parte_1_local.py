@@ -13,6 +13,11 @@ root_db = "/home/aguz/Application_API/databases/"
 model = pickle.load(open(root + 'advertising.model', 'rb'))
 print(model.coef_)
 
+@app.route('/', methods=['GET'])
+def home():
+	return "<h1>hola, soy tu predictor de ventas</h1><p>Esto no es un copy/paste.</p>"
+
+
 # POST {"TV":, "radio":, "newspaper":} -> It returns the sales prediction for input investments
 @app.route('/predict', methods=['POST'])
 def get_predict():
