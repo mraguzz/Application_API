@@ -33,7 +33,7 @@ def get_predict():
 
     # Get POST JSON data
     data = request.get_json()
-    if data == None:
+    if type(data) != dict:
          data = request.args
     tv = data.get("TV",0)
     radio = data.get("radio",0)
